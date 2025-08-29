@@ -1,0 +1,17 @@
+# virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+app/__pycache__/
+app/llm/__pycache__/
+app/routes/__pycache__/
+app/services/__pycache__/
+
+# models, keep models folder
+models/*
+!models/.gitkeep
+
+# chroma_store, keep chroma_store folder
+chroma_store/*
+!chroma_store/.gitkeep

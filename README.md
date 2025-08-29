@@ -1,15 +1,12 @@
-## LLM WebUI
-```
-Minimalist interface for experimenting with 
-local LLMs via FastAPI + llama-cpp-python.  
-Clean stack, modular architecture, reproducible environment.
+
 ```
 ### Install
 ```bash
 make init        # create .venv install prod + dev dependencies
 make venv        # create virtual environment
 make install     # install prod
-make install-dev #install prod + dev dependencies
+make install-dev # install prod + dev dependencies
+make run         # run FastAPI with autoreload
 ```
 ### Launch
 ```bash
@@ -36,7 +33,6 @@ make help       # Show help message
 
 ### Structure
 ```
-llm-webui
 ├── app
 │   ├── config.py
 │   ├── llm
@@ -47,7 +43,9 @@ llm-webui
 │   │   ├── generate.py
 │   │   └── ping.py
 │   └── services
-│       └── generator.py
+│       ├── generator.py
+│       └── rag.py
+├── chroma_store
 ├── frontend
 │   ├── static
 │   │   └── style.css
@@ -55,7 +53,6 @@ llm-webui
 │       └── index.html
 ├── Makefile
 ├── models
-│   ├── model.gguf
 ├── pytest.ini
 ├── README.md
 ├── requirements-dev.txt
@@ -63,6 +60,7 @@ llm-webui
 └── tests
     ├── test_generate.py
     └── test_ping.py
+
 ```
 ### Stack
 ```
@@ -71,11 +69,4 @@ FastAPI
 llama-cpp-python
 Pytest + Coverage
 Ruff
-```
-### Principles
-```
-Simple design, minimal code. 
-Explicit beats implicit. 
-One role per endpoint. 
-Testable. Extensible.
 ```

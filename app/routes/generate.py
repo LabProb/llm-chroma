@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from typing import Optional
 import time
@@ -8,10 +7,10 @@ import logging
 
 from app.services.generator import list_models, generate_response, DEFAULT_PARAMS
 from app.services.rag import generate_with_rag
+from app.templates import templates
 
 ui_router = APIRouter()
 api_router = APIRouter(prefix="/api", tags=["api"])
-templates = Jinja2Templates(directory="frontend/templates")
 
 # === UI ===
 @ui_router.get("/", response_class=HTMLResponse)
@@ -26,7 +25,11 @@ async def form_get(request: Request):
         **DEFAULT_PARAMS,
         "defaults": DEFAULT_PARAMS,
     }
-    return templates.TemplateResponse("index.html", context)
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context=context,
+    )
 
 
 @ui_router.post("/generate", response_class=HTMLResponse)
@@ -71,7 +74,11 @@ async def form_post(
         "tokens": token_count,
         "duration": duration,
     }
-    return templates.TemplateResponse("index.html", context)
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context=context,
+    )
 
 
 @ui_router.post("/generate-rag", response_class=HTMLResponse)
@@ -121,4 +128,8 @@ async def form_post_rag(
         "tokens": tokens,
         "duration": duration,
     }
-    return templates.TemplateResponse("index.html", context)
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context=context,
+    )
